@@ -1212,11 +1212,11 @@
             isExpiry(dbInbound, index) {
                 return dbInbound.toInbound().isExpiry(index);
             },
-            getUpStats(dbInbound, email) {
+            getUpStats(dbInbound, email, client) {
                 if (email.length == 0) return 0;
                 clientStats = dbInbound.clientStats.find(stats => stats.email === email);
 		remained = clientStats.total - (clientStats.up + clientStats.down);
-		if (remained <= 0) switchEnableClient()
+		if (remained <= 0) switchEnableClient(dbInbound.id, client);
                 return clientStats ? clientStats.up : 0;
             },
             getDownStats(dbInbound, email) {
