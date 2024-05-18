@@ -1215,6 +1215,8 @@
             getUpStats(dbInbound, email) {
                 if (email.length == 0) return 0;
                 clientStats = dbInbound.clientStats.find(stats => stats.email === email);
+		remained = clientStats.total - (clientStats.up + clientStats.down);
+		if (remained <= 0) switchEnableClient()
                 return clientStats ? clientStats.up : 0;
             },
             getDownStats(dbInbound, email) {
